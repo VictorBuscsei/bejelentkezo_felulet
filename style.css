@@ -1,0 +1,104 @@
+/* style for login page */
+
+body {
+    background: #91a716;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    height: 100vh;
+
+    flex-direction: column;
+}
+
+* {
+    box-sizing: padding-box;
+}
+
+form {
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input {
+    display: block;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 95%;
+}
+
+label {
+    color: #888;
+    font-size: 18px;
+    padding: 10px;
+}
+
+/* login button with rainbow effect */
+
+    button {
+        display: block;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 95%;
+        background: #fff;
+        color: #000;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+
+        transition: all 0.3s;
+    }
+
+button:hover {
+    opacity: .10;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: 134, 3, 3;
+}
+
+a {
+    float: right;
+    background: rgb(183, 225, 233);
+    padding: 10px 15px;
+
+    color: #fff;
+
+    border-radius: 10px;
+
+    margin-right: 10px;
+
+    border: none;
+
+    text-decoration: none;
+}
+
+a:hover {
+
+    opacity: .7;
+
+}
