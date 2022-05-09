@@ -47,7 +47,6 @@ label {
     padding: 10px;
 }
 
-/* login button with rainbow effect */
 
     button {
         display: block;
@@ -101,4 +100,8 @@ a:hover {
 
     opacity: .7;
 
+}
+
+col-md-6 offset-md-3{
+    margin-top: 20px;
 }

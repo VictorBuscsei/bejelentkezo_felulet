@@ -2,34 +2,63 @@
 /* login for index.html */
 $email = $_POST['email'];
 $password = $_POST['password'];
-/* open the password.txt file */
-$file = fopen("passwords.txt", "r") or die("Unable to open file!");
+/* open the password.txt file in the local folder */
+$file = fopen("/home/vol8_3/epizy.com/epiz_31683703/htdocs/password.txt", "r") or die("Unable to open file!");
 /* array of keys  5, -14, 31, -9, 3 */
 $key = array(5, -14, 31, -9, 3);
-/* add the key numbers until a 0x0A for each line */
-$key = array_merge($key, array(0x0A));
 /* array of values */
 $values = array();
 /* read the file line by line */
 while(!feof($file)) {
   /* read the file line by line */
     $line = fgets($file);
-    /* add the values to the array */
-    $values[] = $line;
+    for ($i = 0; $i<=strlen($line); $i+=2) {
+        /* bin2hex the line and add to values array */
+        array_push($values, bin2hex($line[$i]));
+    }
+    /* loop through the vales array */
+    for ($i = 0; $i<count($values); $i++) {
+        /* loop through the key array */
+        for ($j = 0; $j<count($key); $j++) {
+            /* if values equals 0A or 0a and count($values) not equal i*/
+            if (($values[$i] == "0A" || $values[$i] == "0a")&& ($i != count($values)||!($i>count($values)))) {
+                $j=0;
+                $i++;
+            } elseif ($i == count($values)||$i>count($values)) {
+                /* break all the loops */
+                break;
+            } else {
+                $values[$i]+=$key[$j];
+            }
+        }
+    }
+    /* values hex2bin*/
+    for ($i = 0; $i<count($values); $i++) {
+        $values[$i] = hex2bin($values[$i]);
+    }
+    /* values to string*/
+    $values = implode("", $values);
+    /* close the file */
+    fclose($file);
 }
-/* close the file */
-fclose($file);
-/* decrypt the values */
-$values = array_map('decrypt', $values, array_fill(0, count($values), $key));
 /* split the values with * separator */
-$values = explode("*", implode("", $values));
+$values = explode("*", $values);
 /* check if the email and password are correct */
 if ($email == $values[0] && $password == $values[1]) {
     /* set the session variables */
     $_SESSION['email'] = $email;
     $_SESSION['password'] = $password;
+/* db connection */
+$servername = "sql311.epizy.com";
+$username = "epiz_31683703";
+$password = "Ob6yXlQJrC";
+$dbname = "epiz_31683703_adatok";
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 /* check the email in the database */
-$sql = "SELECT * FROM users WHERE email = '$email'";
+$sql = "SELECT * FROM tabla WHERE Username = '$email'";
 $result = $conn->query($sql);
 /* if the email is in the database */
 if ($result->num_rows > 0) {
